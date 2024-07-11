@@ -7,7 +7,7 @@
 #SBATCH --job-name       cuda
 #SBATCH --output         cuda-%J.out
 #SBATCH --error          cuda-%J.err
-#SBATCH --mail-user      jspngler@memphis.edu
+#SBATCH --mail-user      %{USER}@memphis.edu
 #SBATCH --mail-type      ALL
 
 ##############################################

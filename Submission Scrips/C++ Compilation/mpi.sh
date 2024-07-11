@@ -6,7 +6,7 @@
 #SBATCH --job-name      mpi
 #SBATCH --output        mpi-%J.out
 #SBATCH --error         mpi-%J.err
-#SBATCH --mail-user     jspngler@memphis.edu
+#SBATCH --mail-user      %{USER}@memphis.edu
 #SBATCH --mail-type     ALL
 
 ##############################################

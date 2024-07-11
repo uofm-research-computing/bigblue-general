@@ -4,7 +4,7 @@
 #SBATCH --time=[DAYS]-[HOURS]:[MINUTES]:[SECONDS]
 #SBATCH --account=[DEPTCODE]
 #SBATCH --job-name=[JOBNAME]
-#SBATCH --mail-user=[USERNAME]@memphis.edu
+#SBATCH --mail-user=%{USER}@memphis.edu
 #SBATCH --mail-type=[MAILTYPE]
 #SBATCH --output=[OUTPUTFILE]
 #SBATCH --error=[ERRORFILE]

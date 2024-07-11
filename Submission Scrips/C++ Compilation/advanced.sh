@@ -6,7 +6,7 @@
 #SBATCH --job-name       advanced
 #SBATCH --output         advanced-%J.out
 #SBATCH --error          advanced-%J.err
-#SBATCH --mail-user      jspngler@memphis.edu
+#SBATCH --mail-user      %{USER}@memphis.edu
 #SBATCH --mail-type      ALL
 
 ##############################################

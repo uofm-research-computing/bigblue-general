@@ -6,7 +6,7 @@
 #SBATCH --job-name       openmp
 #SBATCH --output         openmp-%J.out
 #SBATCH --error          openmp-%J.err
-#SBATCH --mail-user      jspngler@memphis.edu
+#SBATCH --mail-user      %{USER}@memphis.edu
 #SBATCH --mail-type      ALL
 
 ##############################################

@@ -4,7 +4,7 @@
 #SBATCH --time=[DAYS]-[HOURS]:[MINUTES]:[SECONDS]
 #SBATCH --account=[DEPTCODE]
 #SBATCH --job-name=[JOBNAME]
-#SBATCH --mail-user=[USERNAME]@memphis.edu
+#SBATCH --mail-user=%{USER}@memphis.edu
 #SBATCH --output=[STDOUT]-%j.out
 #SBATCH --error=[STDERR]-%j.err
 #SBATCH --mem=[MEMORY_NEEDED_FOR_JOB]

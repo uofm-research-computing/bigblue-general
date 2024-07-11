@@ -5,7 +5,7 @@
 #SBATCH --time=[HOURS]:[MINUTES]:[SECONDS]
 #SBATCH --account=[DEPARTMENT]
 #SBATCH --job-name=[JOB_NAME]
-#SBATCH --mail-user=[EMAIL@SERVER]
+#SBATCH --mail-user=%{USER}@memphis.edu
 #SBATCH --mail-type=[MAIL_OPTIONS]
 #SBATCH --mem=[MEMORY_NEEDED_FOR_JOB]
 #SBATCH --mem-per-cpu=[PER_PROCESS_MEMORY_NEEDED_FOR_JOB]
