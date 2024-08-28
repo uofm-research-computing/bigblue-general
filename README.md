@@ -18,8 +18,20 @@ If you have questions or concerns with the HPC, we ask that you address the foll
     - Be mindful to remove the `is:open` filter to view previously closed issues.
 3. If your question/concern is left unaddressed, feel free to email the HPC admins (hpc-admins@memphis.edu)
 
-## Partitions
+## Partitions/Queues
+When submitting a job, you'll need to specify which partition your job should run in. Here are the possible queues available.
+| Queue       | Number of Nodes | Memory per Node | CPU Cores per Node | Additional Resources          |
+|-------------|-----------------|-----------------|--------------------|--------------------------------|
+| *acomputeq*   | 16              | 768 GB          | 192                |                                |
+| *awholeq*     | 8               | 768 GB          | 192                | Allocate cores in units of 192 |
+| *abigmemq*    | 4               | 1.5 TB          | 192                |                                |
+| *agpuq*       | 4               | 768 GB          | 192                | 2 A100 GPUs                    |
+| *icomputeq*   | 40              | 192 GB          | 40                 |                                |
+| *iwholeq*     | 38              | 192 GB          | 40                 | Allocate cores in units of 40  |
+| *ibigmemq*    | 4               | 1.5 TB          | 40                 |                                |
+| *igpuq*       | 6               | 192 GB          | 40                 | 2 V100 GPUs                    |
 
+You can also run `sinfo -o "%P %D %m %c %G %l"` on the cluster to see similar information, though the memory is presented in MB.
 
 ## Hardware
 
