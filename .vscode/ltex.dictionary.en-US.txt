@@ -1,0 +1,10 @@
+UofM
+PowerEdge
+Skylake
+Skylake
+Infiniband
+Skylake
+Epyc
+Arcastream
+PixStor
+OOB
