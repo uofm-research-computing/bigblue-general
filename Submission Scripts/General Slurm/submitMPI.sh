@@ -10,61 +10,6 @@
 #SBATCH --error=[STDERR]-%j.err
 #SBATCH --mem-per-cpu=[MEMORY_NEEDED_PER_CPU]
 
-#################################################
-# [SOMETHING]                                   #
-#-----------------------------------------------#
-# Please replace anything in [] brackes with    #
-# what you want.                                #
-# Example:                                      #
-# #SBATCH --partition=[PARTITION/QUEUE]         #
-# Becomes:                                      #
-# #SBATCH --partition=acomputeq                 #
-#################################################
-
-#################################################
-# --ntasks=[NTASKS]                             #
-#-----------------------------------------------#
-# Number of threads your job will need per node.#
-# For normal multithreaded jobs, 'ulimit -T'    #
-# will limit the number of threads you can run  #
-# at once. For openMP jobs, OMP_NUM_THREADS will#
-# limit the number of threads your openMP job   #
-# will need.                                    #
-#################################################
-#ulimit -T $SLURM_NTASKS
-#export OMP_NUM_THREADS=$SLURM_NTASKS
-
-#################################################
-# --nodes=[NNODES]                              #
-#-----------------------------------------------#
-# Number of nodes your MPI job will use. You can#
-# use up to 40, but it will remain in queue for #
-# a longer time if there are many jobs running. #
-#################################################
-
-#################################################
-# --partition=[PARTITION/QUEUE]                 #
-#-----------------------------------------------#
-# acomputeq: 16 nodes each with 768G mem and    #
-#            192 CPU cores                      #
-# awholeq: 8 nodes each with 768G mem and       #
-#          192 CPU cores                        #
-#          (alloc cores in units of 192)        #
-# abigmemq: 4 nodes each with 1.5T mem and      #
-#           192 CPU cores                       #
-# agpuq: 4 nodes each with 768G mem,            #
-#        2 A100 GPUs, and 192 CPU cores         #
-# icomputeq: 40 nodes each with 192G mem and    #
-#            40 CPU cores                       #
-# iwholeq: 38 nodes each with 192G mem and      #
-#          40 CPU cores                         #
-#          (alloc cores in units of 40)         #
-# ibigmemq: 4 nodes each with 1.5T mem and      #
-#           40 CPU cores                        #
-# igpuq: 6 nodes each with 192G mem,            #
-#        2 V100 GPUs, and 40 CPU cores          #
-#################################################
-
 # Go to submission directory
 cd $SLURM_SUBMIT_DIR
 
@@ -105,4 +50,4 @@ echo "$SLURM_JOB_ID"
 #  SLURM_NTASKS                                 #
 #   Number of tasks on all nodes in job.        #
 #################################################
-#mpirun [EXECUTABLE] [OPTIONS]
+mpirun [EXECUTABLE] [OPTIONS]

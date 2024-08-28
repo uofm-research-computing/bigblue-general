@@ -10,17 +10,6 @@
 #SBATCH --error=[ERRORFILE]
 #SBATCH --array=[SLURM_ARRAY_TASK_ID values]
 
-#################################################
-# [SOMETHING]                                   #
-#-----------------------------------------------#
-# Please replace anything in [] brackes with    #
-# what you want.                                #
-# Example:                                      #
-# #SBATCH --partition=[PARTITION/QUEUE]         #
-# Becomes:                                      #
-# #SBATCH --partition=acomputeq                 #
-#################################################
-
 ################################################
 # SLURM_ARRAY_TASK_ID and --array              #
 #----------------------------------------------#
@@ -52,27 +41,6 @@ echo "$SLURM_ARRAY_TASK_MIN"
 echo "$SLURM_ARRAY_TASK_MAX" 
 
 #################################################
-# --output and --error                          #
-#-----------------------------------------------#
-# We can label our output and error files per   #
-# SLURM_ARRAY_TASK_ID with %a, and per          #
-# SLURM_ARRAY_JOB_ID with %A.                   #
-# e.g. '--output=output-%A-%a.out' would produce#
-# output files like 'output-5-6.out'.           #
-#################################################
-
-#################################################
-# Comment this cd command when testing.         #
-#################################################
-cd $SLURM_SUBMIT_DIR
- 
-# Load the module you need
-#module load [MODULE]
-
-# Run our program
-#[EXECUTABLE] [OPTIONS]
-
-#################################################
 # Examples:                                     #
 #################################################
 
@@ -93,32 +61,32 @@ cd $SLURM_SUBMIT_DIR
 # After testing, you could just comment out the for, do, and done lines  #
 # and submit it                                                          #
 ##########################################################################
-#N=5
-#for SLURM_ARRAY_TASK_ID in {0..70}
-#do 
-#	echo "$SLURM_ARRAY_TASK_ID"
-#	I=`echo "${SLURM_ARRAY_TASK_ID}%$N" | bc`
-#	name="FILE_${I}"
-#	newName="${name}_${SLURM_ARRAY_TASK_ID}"
-#	echo "$name => $newName"
-#done
-#cp ${name} ${newName}
+N=5
+for SLURM_ARRAY_TASK_ID in {0..70}
+do 
+    echo "$SLURM_ARRAY_TASK_ID"
+    I=`echo "${SLURM_ARRAY_TASK_ID}%$N" | bc`
+    name="FILE_${I}"
+    newName="${name}_${SLURM_ARRAY_TASK_ID}"
+    echo "$name => $newName"
+done
+cp ${name} ${newName}
 
 # Using R, taking two files with
 # SLURM_ARRAY_TASK_ID as part of the name. e.g. file_0.data, file_1.data, ...
-#module load R/4.3.2/gcc.8.5.0
-#Rscript --vanilla myScript.R file_${SLURM_ARRAY_TASK_ID}.data file_${SLURM_ARRAY_TASK_ID}.out
+module load R/4.3.2/gcc.8.5.0
+Rscript --vanilla myScript.R file_${SLURM_ARRAY_TASK_ID}.data file_${SLURM_ARRAY_TASK_ID}.out
 
 # Using Python (assuming 'module load python/3.7.0'), taking two files with
 # SLURM_ARRAY_TASK_ID as part of the name. e.g. file_0.data, file_1.data, ...
-#python3 myScript.py file_${SLURM_ARRAY_TASK_ID}.data file_${SLURM_ARRAY_TASK_ID}.out
+python3 myScript.py file_${SLURM_ARRAY_TASK_ID}.data file_${SLURM_ARRAY_TASK_ID}.out
 
 # Using MATLAB, taking two files with (no module, just export PATH)
 # SLURM_ARRAY_TASK_ID as part of the name. e.g. file_0.data, file_1.data, ...
-#export PATH=$PATH:/public/apps/matlab/R2018a/bin
-#matlab -nodisplay -nojvm -nosplash -r "myFunction(\"file_${SLURM_ARRAY_TASK_ID}.data\", \"file_${SLURM_ARRAY_TASK_ID}.out\");quit";
+export PATH=$PATH:/public/apps/matlab/R2018a/bin
+matlab -nodisplay -nojvm -nosplash -r "myFunction(\"file_${SLURM_ARRAY_TASK_ID}.data\", \"file_${SLURM_ARRAY_TASK_ID}.out\");quit";
 
 # You could also just pass SLURM_ARRAY_TASK_ID as a value for some argument alone
-#python3 myScript.py ${SLURM_ARRAY_TASK_ID}
-#Rscript --vanilla myScript.R ${SLURM_ARRAY_TASK_ID}
-#matlab -nodisplay -nojvm -nosplash -r "myFunction(${SLURM_ARRAY_TASK_ID});quit";
+python3 myScript.py ${SLURM_ARRAY_TASK_ID}
+Rscript --vanilla myScript.R ${SLURM_ARRAY_TASK_ID}
+matlab -nodisplay -nojvm -nosplash -r "myFunction(${SLURM_ARRAY_TASK_ID});quit";

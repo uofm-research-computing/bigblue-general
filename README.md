@@ -1,4 +1,21 @@
-# HPC
+# Table of Contents
+
+1. [hpc](#hpc)
+2. [Hierarchy of Inquiry](#hierarchy-of-inquiry)
+   - [Research Computing](#research-computing)
+   - [GitHub Repository](#github-repository)
+   - [Contact HPC Admins](#contact-hpc-admins)
+3. [Partitions/Queues](#partitionsqueues)
+4. [Submission Script Guide](#submission-script-guide)
+   - [sbatch](#sbatch)
+   - [srun](#srun)
+5. [Directory Usage](#directory-usage)
+6. [Hardware](#hardware)
+   - [Intel Processors](#intel-processors)
+   - [AMD Processors (new)](#amd-processors-new)
+7. [Storage](#storage)
+
+## hpc
 
 This repository holds files/scripts commonly used on the HPC at the University of Memphis, and is meant to be a place where users can raise questions or concerns about HPC related issues.
 
@@ -35,9 +52,9 @@ You can also run `sinfo -o "%P %D %m %c %G %l"` on the cluster to see similar in
 
 ## Submission Script Guide
 
-When you log in, you are placed on either of the login nodes `log01`/`log02`, but running a script there takes up memory for every other user online. You must submit a script as a job to utilize the power of the cluster. 
+When you log in, you are placed on either of the login nodes (`log01`/`log02`), but running a script there takes up memory for every other user online. You must submit a script as a job to utilize the power of the cluster. 
 
-There are two commands of submitting a job: `sbatch` and `srun`. If we do not adequately describe what you are looking for, please visit the slurm documentaion on [sbatch](https://slurm.schedmd.com/sbatch.html).
+There are two commands of submitting a job to the cluster: `sbatch` and `srun`. Below is a simple run-down of both commands. However, if we do not adequately describe what you are looking for, please visit the slurm documentaion on [sbatch](https://slurm.schedmd.com/sbatch.html).
 
 ### sbatch
 
@@ -47,9 +64,24 @@ You can submit jobs using the sbatch command: `sbatch jobscript.sh`. However, it
 
 You can run commands interactively through the `srun` command (which takes many of the same options as the `sbatch` command):
 
-`srun --cpus-per-task=1 --mem-per-cpu=500M --partition=acomputeq --job-name=test --time=00:02:00 --pty bash`
+```
+srun --cpus-per-task=1 --mem-per-cpu=500M --partition=acomputeq --job-name=test --time=00:02:00 --pty bash
+```
 
 will launch an interactive session on one of the acomputeq nodes once one is available where commands can be written. The `--pty` option indicates that the command is interactive. Run the `exit` (`Ctrl+D`) command to quit an interactive job.
+
+## Directory Usage 
+
+Our system provides three main directories for your storage needs:
+- **/home/$USER**: Use this directory to store reusable scripts and small files. It has a storage limit of 50 GB. Please keep in mind that this space is intended for essential files that do not take up significant storage.
+- **/project/$USER**: This is where you should keep all major files generated from your jobs that you need to retain. You have up to 1 TB of space available here. Store any important data and outputs that need to be preserved for future reference.
+- **/scratch/$USER**: Set this directory as the location for temporary files during job execution. It provides 10 TB of space. Be sure to clean up and delete these temporary files after your job is completed. Move any crucial files to the **/project/$USER** directory. Note that files older than 60 days in this directory will be automatically deleted.
+
+Ensure that you manage these directories appropriately to optimize your storage usage and maintain a clean working environment.
+
+## Modules
+
+
 
 ## Hardware
 
@@ -61,20 +93,20 @@ The new AMD partition configuration consists of 32 nodes with 6144 total CPU cor
 
 Overall, the cluster has 120 compute nodes with 9152 cores, 48384 GB total RAM, and 20 GPUs.
 
-Intel Processors
+### Intel Processors
 
 - Intel Thin: 78 PowerEdge C6420 dual socket Intel Skylake Gold 6148 compute nodes with 192 GB DDR4 RAM and EDR Infiniband.
 - NVIDIA GPU with Intel processors: 6 PowerEdge R740 dual socket Intel Skylake Gold 6148 GPU nodes with 192 GB DDR4 RAM, 2 x NVIDIA V100 GPU and EDR Infiniband - 5120 GPU cores/V100, 10240 GPU cores/GPU node
 - Intel Fat: 2 PowerEdge R740 dual socket Intel Skylake Gold 6148 Fat Memory Nodes with 768 GB DDR4 RAM and EDR Infiniband
 - Intel Large Fat: 2 PowerEdge R740 dual socket Intel Skylake Gold 6148 Nodes with 1.5 TB DDR4 RAM and EDR Infiniband
 
-AMD Processors (new)
+### AMD Processors (new)
 
 - AMD Thin: 24 PowerEdge R7625 dual socket AMD Epyc Genoa 9654 compute nodes with 768 GB DDR5 RAM and HDR100 Infiniband.
 - NVIDIA GPU with AMD processors: 4 PowerEdge R7625 dual socket AMD Epyc Genoa 9354 compute nodes with 768 GB DDR5 RAM, 2 x NVIDIA A100 GPU and HDR100 Infiniband.
 - AMD Fat: 4 PowerEdge R7625 dual socket AMD Epyc Genoa 9654 compute nodes with 1.5 TB DDR5 RAM and HDR100 Infiniband.
 
-Storage
+### Storage
 
 - Parallel File System: Arcastream PixStor (GPFS) with 60 x 7.68 TB HDD (460.8 TB total raw storage) providing up to 7.5 GB/sec read and 5.5 GB/sec write performance, and 8 x 15.3 TB SSD (122.9 TB total raw storage) providing up to 80 GB/s read and write speeds. Total storage is 583.7 TB.
 
