@@ -10,10 +10,12 @@
    - [sbatch](#sbatch)
    - [srun](#srun)
 5. [Directory Usage](#directory-usage)
-6. [Hardware](#hardware)
+6. [Modules](#modules)
+7. [Python](#python)
+8. [Hardware](#hardware)
    - [Intel Processors](#intel-processors)
    - [AMD Processors (new)](#amd-processors-new)
-7. [Storage](#storage)
+9. [Storage](#storage)
 
 ## hpc
 
@@ -56,6 +58,8 @@ When you log in, you are placed on either of the login nodes (`log01`/`log02`), 
 
 There are two commands of submitting a job to the cluster: `sbatch` and `srun`. Below is a simple run-down of both commands. However, if we do not adequately describe what you are looking for, please visit the slurm documentaion on [sbatch](https://slurm.schedmd.com/sbatch.html).
 
+You can watch the progress of your job using the `squeue -u $USER` command and replacing the $USER with your name. Alternatively, I like to use `squeue | grep $USER` command so my username returns bolded.
+
 ### sbatch
 
 You can submit jobs using the sbatch command: `sbatch jobscript.sh`. However, it’s important to ensure that your submission script (`jobscript.sh`) follows the required format. Many issues arise when users overlook this critical step. Please visit this [sample script](https://github.com/uofm-research-computing/hpc/blob/60538f2cba2066fb2f2d1dc4fe04a39a5e9a9ed5/Submission%20Scripts/General%20Slurm/submitManual.sh) that walks through the format and the many flags.
@@ -81,6 +85,18 @@ Ensure that you manage these directories appropriately to optimize your storage 
 
 ## Modules
 
+Spack is a newer, faster, and more consistent software-install system used to install almost 8000 packages in an HPC environment. To see what spack packages are installed on bigblue:
+1. Run `module load spack/0.21.0`
+2. Run `module avail`
+
+Many of the programs on the old cluster have been carried over as one of the spack modules. If you don't see a package you need, feel free to contact us about installing the package centrally. If you would prefer to install a package for yourself, use the instructions [here](https://spack.readthedocs.io/en/latest/getting_started.html). Installing yourself might be preferable—especially to begin with—as there might be a queue in front of your request to get something installed.
+
+## Python
+
+For python, we won't be installing packages centrally like the previous cluster. To install a python package:
+1. Select a version of python, like one of the modules `python/3.10.3` or `python/3.12.1`
+2. Run `pip3 install packageName --user` and for each package, you only have to run this one time.
+3. Use the package like you would normally in your script. You will need to load the python module you used to install the package in your submission scripts or the terminal when you login.
 
 
 ## Hardware
@@ -109,5 +125,11 @@ Overall, the cluster has 120 compute nodes with 9152 cores, 48384 GB total RAM, 
 ### Storage
 
 - Parallel File System: Arcastream PixStor (GPFS) with 60 x 7.68 TB HDD (460.8 TB total raw storage) providing up to 7.5 GB/sec read and 5.5 GB/sec write performance, and 8 x 15.3 TB SSD (122.9 TB total raw storage) providing up to 80 GB/s read and write speeds. Total storage is 583.7 TB.
+
+| Fileset     | Description            |
+|-------------|------------------------|
+| *nvme1-scratch* | 250 TB scratch file system for active jobs requiring high-speed storage. Users initially have a 10 TB "soft" quota, and a 20 TB "hard" quota. |
+| *sas1-home*   | 50 TB home file system for user software, modules, scripts, etc. Backed up once a week. Users initially have a 50 GB "soft" quota and a 60 GB "hard" quota. |
+| *sas1-project* | 400 TB project file system for user data. Backed up once a week. Users initially have a 1 TB "soft" quota and a 2 TB "hard" quota. |
 
 All compute nodes are connected via HDR100/EDR Infiniband (2:1 Blocking) and 1GbE for host/OOB management. Head and Login nodes are connected via HDR100 Infiniband and 10GbE for host/OOB management.
