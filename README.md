@@ -20,8 +20,8 @@ If you have questions or concerns with the HPC, we ask that you address the foll
 
 ## Partitions/Queues
 When submitting a job, you'll need to specify which partition your job should run in. Here are the possible queues available.
-| Queue       | Number of Nodes | Memory per Node | CPU Cores per Node | Additional Resources          |
-|-------------|-----------------|-----------------|--------------------|--------------------------------|
+| Queue         | Number of Nodes | Memory per Node | CPU Cores per Node | Additional Notes               |
+|---------------|-----------------|-----------------|--------------------|--------------------------------|
 | *acomputeq*   | 16              | 768 GB          | 192                |                                |
 | *awholeq*     | 8               | 768 GB          | 192                | Allocate cores in units of 192 |
 | *abigmemq*    | 4               | 1.5 TB          | 192                |                                |
@@ -31,7 +31,25 @@ When submitting a job, you'll need to specify which partition your job should ru
 | *ibigmemq*    | 4               | 1.5 TB          | 40                 |                                |
 | *igpuq*       | 6               | 192 GB          | 40                 | 2 V100 GPUs                    |
 
-You can also run `sinfo -o "%P %D %m %c %G %l"` on the cluster to see similar information, though the memory is presented in MB.
+You can also run `sinfo -o "%P %D %m %c %G %l"` on the cluster to see similar information, though the memory is presented in MB there.
+
+## Submission Script Guide
+
+When you log in, you are placed on either of the login nodes `log01`/`log02`, but running a script there takes up memory for every other user online. You must submit a script as a job to utilize the power of the cluster. 
+
+There are two commands of submitting a job: `sbatch` and `srun`. If we do not adequately describe what you are looking for, please visit the slurm documentaion on [sbatch](https://slurm.schedmd.com/sbatch.html).
+
+### sbatch
+
+You can submit jobs using the sbatch command: `sbatch jobscript.sh`. However, it’s important to ensure that your submission script (`jobscript.sh`) follows the required format. Many issues arise when users overlook this critical step. Please visit this [sample script](https://github.com/uofm-research-computing/hpc/blob/60538f2cba2066fb2f2d1dc4fe04a39a5e9a9ed5/Submission%20Scripts/General%20Slurm/submitManual.sh) that walks through the format and the many flags.
+
+### srun
+
+You can run commands interactively through the `srun` command (which takes many of the same options as the `sbatch` command):
+
+`srun --cpus-per-task=1 --mem-per-cpu=500M --partition=acomputeq --job-name=test --time=00:02:00 --pty bash`
+
+will launch an interactive session on one of the acomputeq nodes once one is available where commands can be written. The `--pty` option indicates that the command is interactive. Run the `exit` (`Ctrl+D`) command to quit an interactive job.
 
 ## Hardware
 
