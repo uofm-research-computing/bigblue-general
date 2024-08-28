@@ -101,13 +101,7 @@ For python, we won't be installing packages centrally like the previous cluster.
 
 ## Hardware
 
-During the Fall of 2023, we upgraded the cluster with more and newer compute resources. This upgrade is part of a new 4-year cycle, and it came online in late January 2024.
-
-The older Intel partition configuration consists of 88 compute nodes with 3520 total CPU cores (40 cores per node), 20736 GB total RAM, and 12 NVIDIA V100 GPUs.
-
-The new AMD partition configuration consists of 32 nodes with 6144 total CPU cores (192 cores per node), 27648 GB total RAM, and 8 A100 GPUs.
-
-Overall, the cluster has 120 compute nodes with 9152 cores, 48384 GB total RAM, and 20 GPUs.
+During the Fall of 2023, we upgraded the cluster with more and newer compute resources. This upgrade is part of a new 4-year cycle, and it came online in late January 2024. The older Intel partition configuration consists of 88 compute nodes with 3520 total CPU cores (40 cores per node), 20736 GB total RAM, and 12 NVIDIA V100 GPUs. The new AMD partition configuration consists of 32 nodes with 6144 total CPU cores (192 cores per node), 27648 GB total RAM, and 8 A100 GPUs. Overall, the cluster has 120 compute nodes with 9152 cores, 48384 GB total RAM, and 20 GPUs.
 
 ### Intel Processors
 
